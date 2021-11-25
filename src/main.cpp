@@ -1,19 +1,5 @@
-#include <WiFi.h>
+#include <main.h>
 
-// вводим имя и пароль точки доступа
-const char* ssid     = "domik";
-const char* password = "2363423634";
-
-// const char* ssid     = "BestInternet";
-// const char* password = "192309856";
-
-// задаем номер порта для веб-сервера («80»):
-WiFiServer server(80);
-
-// Переменная для хранения HTTP-запроса:
-String header;
-
-// Вспомогательные переменные 
 // для хранения текущего состояния выходных GPIO-контактов:
 String output26State = "off";
 String output27State = "off";
@@ -21,24 +7,6 @@ String output27State = "off";
 // Задаем номера для выходных GPIO-контактов:
 const int output26 = 26;
 const int output27 = 27;
-
-// Задаем статический IP-адрес: Qualitet
-// IPAddress local_IP(192, 168, 0, 50);
-// // Задаем IP-адрес сетевого шлюза:
-// IPAddress gateway(192, 168, 0, 1);
-
-// IPAddress subnet(255, 255, 0, 0);
-// IPAddress primaryDNS(8, 8, 8, 8);   // опционально
-// IPAddress secondaryDNS(8, 8, 4, 4); // опционально
-
-// Задаем статический IP-адрес: domik
-IPAddress local_IP(192, 168, 1, 50);
-// Задаем IP-адрес сетевого шлюза:
-IPAddress gateway(192, 168, 1, 1);
-
-IPAddress subnet(255, 255, 0, 0);
-IPAddress primaryDNS(8, 8, 8, 8);   // опционально
-IPAddress secondaryDNS(8, 8, 4, 4); // опционально
 
 void setup() {
   Serial.begin(115200);
@@ -97,10 +65,6 @@ void loop(){
               Serial.println("GPIO 26 on");  //  "GPIO26 включен"
               output26State = "on";
               digitalWrite(output26, HIGH);
-              delay(20);
-              digitalWrite(output26, LOW);
-              delay(20);
-
             } else if (header.indexOf("GET /26/off") >= 0) {
               Serial.println("GPIO 26 off");  //  "GPIO26 выключен"
               output26State = "off";
@@ -169,8 +133,8 @@ void loop(){
     // Очищаем переменную «header»:
     header = "";
     // Отключаем соединение:
-    client.stop();
-    Serial.println("Client disconnected."); //  "Клиент отключился."
+    // client.stop();
+    // Serial.println("Client disconnected."); //  "Клиент отключился."
     Serial.println("");
   }
 }
